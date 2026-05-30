@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen" style={{ backgroundColor: '#0A1628' }}>
-      <div className="max-w-lg mx-auto px-4 py-6">
+      <div className="max-w-lg mx-auto px-4 py-6 pb-20">
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold" style={{ color: '#D4AF37' }}>
@@ -71,8 +71,8 @@ export default function Home() {
         {step > 1 && (
           <button
             onClick={handleBack}
-            className="flex items-center gap-1 mb-4 text-sm transition-opacity hover:opacity-80"
-            style={{ color: '#B0B8C8' }}
+            className="flex items-center gap-1 mb-4 text-base py-2 pr-4 transition-opacity hover:opacity-80 active:opacity-60"
+            style={{ color: '#B0B8C8', minHeight: '44px' }}
           >
             ← 戻る
           </button>

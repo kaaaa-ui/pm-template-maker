@@ -28,10 +28,11 @@ export default function StepTone({ selected, onSelect }: Props) {
           <button
             key={tone.value}
             onClick={() => onSelect(tone.value)}
-            className="flex flex-col items-center gap-2 p-5 rounded-xl transition-all duration-200"
+            className="flex flex-col items-center gap-2 p-5 rounded-xl transition-all duration-200 active:scale-[0.97]"
             style={{
               backgroundColor: selected === tone.value ? '#1E3A5F' : '#111D2E',
               border: selected === tone.value ? '2px solid #D4AF37' : '2px solid rgba(212,175,55,0.25)',
+              minHeight: '120px',
             }}
           >
             <span className="text-3xl">{tone.icon}</span>

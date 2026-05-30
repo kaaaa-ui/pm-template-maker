@@ -92,7 +92,7 @@ export default function ResultView({ template, onReset }: Props) {
       <div className="text-center pt-4 pb-8">
         <button
           onClick={onReset}
-          className="px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:opacity-80"
+          className="px-8 py-4 rounded-xl font-bold text-base transition-all duration-200 hover:opacity-80 active:scale-95"
           style={{ backgroundColor: '#1E3A5F', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.4)' }}
         >
           🔄 別のパターンを試す

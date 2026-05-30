@@ -29,7 +29,7 @@ export default function StepScene({ selected, onSelect }: Props) {
           <button
             key={scene.value}
             onClick={() => onSelect(scene.value)}
-            className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200 text-left"
+            className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200 text-left active:scale-[0.98]"
             style={{
               backgroundColor: selected === scene.value ? '#1E3A5F' : '#111D2E',
               border: selected === scene.value ? '2px solid #D4AF37' : '2px solid rgba(212,175,55,0.25)',
