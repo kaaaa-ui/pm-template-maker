@@ -28,6 +28,7 @@ export interface Template {
   english: TemplateTexts
   ngExamples: NGExample[]
   timing: TimingInfo
+  proTips: string[]
 }
 
 export interface SelectionOption<T extends string> {

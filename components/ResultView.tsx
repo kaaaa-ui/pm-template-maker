@@ -31,9 +31,24 @@ const toneLabels: Record<string, string> = {
 interface Props {
   template: Template
   onReset: () => void
+  userName: string
 }
 
-export default function ResultView({ template, onReset }: Props) {
+function replaceName(text: string, userName: string, isEnglish: boolean): string {
+  const jaDefault = 'あなた'
+  const enDefault = 'you'
+  const name = userName.trim()
+
+  if (name) {
+    return text.replace(/\{name\}/g, name)
+  }
+  return text.replace(/\{name\}さん/g, isEnglish ? enDefault : `${jaDefault}`).replace(/\{name\}/g, isEnglish ? enDefault : jaDefault)
+}
+
+export default function ResultView({ template, onReset, userName }: Props) {
+  const rJa = (t: string) => replaceName(t, userName, false)
+  const rEn = (t: string) => replaceName(t, userName, true)
+
   return (
     <div className="animate-slide-in space-y-6">
       <div className="text-center">
@@ -51,6 +66,11 @@ export default function ResultView({ template, onReset }: Props) {
             {toneLabels[template.tone]}
           </span>
         </div>
+        {userName.trim() && (
+          <p className="text-sm" style={{ color: '#22C55E' }}>
+            ✓ 「{userName.trim()}」でテンプレートに名前反映済み
+          </p>
+        )}
       </div>
 
       {/* Japanese Templates */}
@@ -60,9 +80,9 @@ export default function ResultView({ template, onReset }: Props) {
           <span>日本語テンプレート</span>
         </h3>
         <div className="grid gap-3">
-          <TemplateCard label="パターンA（短め・カジュアル）" text={template.japanese.short} />
-          <TemplateCard label="パターンB（中くらい・丁寧）" text={template.japanese.medium} />
-          <TemplateCard label="パターンC（長め・特別感）" text={template.japanese.long} />
+          <TemplateCard label="パターンA（短め・カジュアル）" text={rJa(template.japanese.short)} />
+          <TemplateCard label="パターンB（中くらい・丁寧）" text={rJa(template.japanese.medium)} />
+          <TemplateCard label="パターンC（長め・特別感）" text={rJa(template.japanese.long)} />
         </div>
       </div>
 
@@ -73,9 +93,9 @@ export default function ResultView({ template, onReset }: Props) {
           <span>英語テンプレート</span>
         </h3>
         <div className="grid gap-3">
-          <TemplateCard label="Pattern A (Short & Casual)" text={template.english.short} />
-          <TemplateCard label="Pattern B (Medium & Polite)" text={template.english.medium} />
-          <TemplateCard label="Pattern C (Long & Special)" text={template.english.long} />
+          <TemplateCard label="Pattern A (Short & Casual)" text={rEn(template.english.short)} />
+          <TemplateCard label="Pattern B (Medium & Polite)" text={rEn(template.english.medium)} />
+          <TemplateCard label="Pattern C (Long & Special)" text={rEn(template.english.long)} />
         </div>
       </div>
 
@@ -84,6 +104,25 @@ export default function ResultView({ template, onReset }: Props) {
 
       {/* Timing Guide */}
       <TimingGuide timing={template.timing} />
+
+      {/* Pro Tips */}
+      <div className="animate-slide-up">
+        <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+          <span>🎯</span>
+          <span style={{ color: '#D4AF37' }}>返信率UPのコツ</span>
+        </h3>
+        <div
+          className="p-4 rounded-xl grid gap-2"
+          style={{ backgroundColor: '#111D2E', border: '1px solid rgba(212,175,55,0.25)' }}
+        >
+          {template.proTips.map((tip, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <span className="text-sm" style={{ color: '#D4AF37' }}>•</span>
+              <p className="text-sm" style={{ color: '#E0E4EA' }}>{tip}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* CTA */}
       <CTA />

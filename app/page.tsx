@@ -8,12 +8,14 @@ import StepScene from '@/components/StepScene'
 import StepTarget from '@/components/StepTarget'
 import StepTone from '@/components/StepTone'
 import ResultView from '@/components/ResultView'
+import NameInput from '@/components/NameInput'
 
 export default function Home() {
   const [step, setStep] = useState<Step>(1)
   const [scene, setScene] = useState<Scene | null>(null)
   const [target, setTarget] = useState<Target | null>(null)
   const [tone, setTone] = useState<Tone | null>(null)
+  const [userName, setUserName] = useState('')
 
   const handleSceneSelect = (s: Scene) => {
     setScene(s)
@@ -64,6 +66,9 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Name Input - always visible */}
+        <NameInput value={userName} onChange={setUserName} />
+
         {/* Progress */}
         <ProgressBar currentStep={step} />
 
@@ -82,7 +87,7 @@ export default function Home() {
         {step === 1 && <StepScene selected={scene} onSelect={handleSceneSelect} />}
         {step === 2 && <StepTarget selected={target} onSelect={handleTargetSelect} />}
         {step === 3 && <StepTone selected={tone} onSelect={handleToneSelect} />}
-        {step === 4 && currentTemplate && <ResultView template={currentTemplate} onReset={handleReset} />}
+        {step === 4 && currentTemplate && <ResultView template={currentTemplate} onReset={handleReset} userName={userName} />}
       </div>
     </main>
   )
